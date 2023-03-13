@@ -78,26 +78,37 @@ namespace ChallengesWithTestsMark8
         {
             if (words == null || words.Length == 0)
             {
-                return ""; // return empty string if input array is null or empty
+                return "";
             }
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append(words[0].Trim()); // add first trimmed word to string
+            int goodwords = 0;
+            List<string> wordslist = new List<string>();
 
-            for (int i = 1; i < words.Length; i++)
+            for (int i = 0; i < words.Length; i++)
             {
-                sb.Append(string.IsNullOrWhiteSpace(words[i]) ? "" : " " + words[i].Trim());
-            }
+                if (words[i].Trim().Length > 0)
+                {
+                    wordslist.Add(words[i].Trim() + " ");
 
-            sb.Append("."); // add a period at the end of the sentence
-            return sb.ToString();
+                    goodwords++;
+                }
+            }
+            
+            if (goodwords == 0)
+            {
+                return "";
+            }
+            else
+            {
+                return String.Join("", wordslist). Trim() + ".";
+            }
 
         }
         public double[] GetEveryFourthElement(List<double> elements)
         {
-            if (elements == null)
+            if (elements == null || elements.Count == 0)
             {
-                return null;
+                return new double [0];
             }
 
             int numElements = elements.Count / 4;
@@ -115,7 +126,18 @@ namespace ChallengesWithTestsMark8
 
         public bool TwoDifferentElementsInArrayCanSumToTargetNumber(int[] nums, int targetNumber)
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                for (int k = i + 1; k < nums.Length; k++)
+                {
+                    if (nums[i] + nums[k] == targetNumber)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }
